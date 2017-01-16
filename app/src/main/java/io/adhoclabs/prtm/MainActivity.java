@@ -24,7 +24,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Arrays;
 
+import io.adhoclabs.communication.Contactus;
 import io.adhoclabs.communication.Enquiry;
+import io.adhoclabs.internship.Internship;
 import io.adhoclabs.newfeeds.DashBoard;
 
 public class MainActivity extends AppCompatActivity
@@ -109,14 +111,18 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_dashboard) {
-            // Handle the camera action
+            replaceFragment(new DashBoard());
         } else if (id == R.id.nav_internship) {
+            replaceFragment(new Internship());
 
         } else if (id == R.id.nav_trainings) {
+            replaceFragment(new Trainings());
 
         } else if (id == R.id.nav_aboutus) {
+            replaceFragment(new Aboutus());
 
         } else if (id == R.id.nav_contactus) {
+            replaceFragment(new Contactus());
 
         } else if (id == R.id.nav_enquiry) {
 
@@ -142,6 +148,8 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
+
         return true;
     }
 
