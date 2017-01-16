@@ -16,12 +16,7 @@ import java.util.List;
 
 import io.adhoclabs.prtm.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class DashBoard extends Fragment {
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
 
     public DashBoard() {
         // Required empty public constructor
@@ -35,27 +30,27 @@ public class DashBoard extends Fragment {
         View view = inflater.inflate(R.layout.fragment_dash_board, container, false);
 
 
-        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
         return view;
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
+        MyAdapter adapter = new MyAdapter(getActivity().getSupportFragmentManager());
         adapter.addFragment(new Home(), "Home");
         adapter.addFragment(new News(), "New Feeds");
         viewPager.setAdapter(adapter);
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
+    private class MyAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        public ViewPagerAdapter(FragmentManager manager) {
+        MyAdapter(FragmentManager manager) {
             super(manager);
         }
 
@@ -69,7 +64,7 @@ public class DashBoard extends Fragment {
             return mFragmentList.size();
         }
 
-        public void addFragment(Fragment fragment, String title) {
+        void addFragment(Fragment fragment, String title) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }
