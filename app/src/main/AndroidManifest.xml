@@ -32,7 +32,7 @@
                     android:scheme="http" />
             </intent-filter>
         </activity>
-        <activity android:name=".Authentication"></activity>
+        <activity android:name=".Auth_Firebase"></activity>
     </application>
 
 </manifest>

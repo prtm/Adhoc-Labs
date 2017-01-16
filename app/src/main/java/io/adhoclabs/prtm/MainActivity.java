@@ -1,5 +1,6 @@
 package io.adhoclabs.prtm;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -15,10 +16,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.ErrorCodes;
+import com.firebase.ui.auth.IdpResponse;
+import com.firebase.ui.auth.ResultCodes;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Arrays;
+
+import io.adhoclabs.communication.Enquiry;
 import io.adhoclabs.newfeeds.DashBoard;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private static final int RC_SIGN_IN = 176;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +38,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -42,12 +55,14 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
 
         //Add Dynamic Fragment Dashboard
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.nav_fragment, new DashBoard(), "dashboard").commit();
+
 
     }
 
@@ -105,10 +120,68 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_enquiry) {
 
+            if (FirebaseAuth.getInstance() != null) {
+                replaceFragment(new Enquiry());
+            } else {
+                startActivityForResult(
+                        AuthUI.getInstance()
+                                .createSignInIntentBuilder()
+                                .setProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                                        new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
+                                        new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build(),
+                                        new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build()))
+                                .build(),
+                        RC_SIGN_IN);
+
+                // .setTheme(R.style.apptheme)
+
+
+            }
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // RC_SIGN_IN is the request code you passed into startActivityForResult(...) when starting the sign in flow.
+        if (requestCode == RC_SIGN_IN) {
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+
+            // Successfully signed in
+            if (resultCode == ResultCodes.OK) {
+                replaceFragment(new Enquiry());
+                return;
+            } else {
+                replaceFragment(new DashBoard());
+                navigationView.setCheckedItem(R.id.nav_dashboard);
+                // Sign in failed
+                if (response == null) {
+                    // User pressed back button
+                    showSnackbar("SignIn cancelled");
+                    return;
+                }
+
+                if (response.getErrorCode() == ErrorCodes.NO_NETWORK) {
+                    showSnackbar("No Network");
+                    return;
+                }
+
+                if (response.getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
+                    showSnackbar("Unknown Error");
+                    return;
+                }
+            }
+
+            showSnackbar("Unknown SignIn Response");
+        }
+    }
+
+    private void showSnackbar(String msg) {
+        Snackbar.make(findViewById(R.id.signin), msg, Snackbar.LENGTH_SHORT).show();
     }
 }
