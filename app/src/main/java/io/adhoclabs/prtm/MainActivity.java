@@ -128,7 +128,9 @@ public class MainActivity extends AppCompatActivity
 
             if (FirebaseAuth.getInstance() != null) {
                 replaceFragment(new Enquiry());
+                L.tmshort(this,"signinNot");
             } else {
+                L.tmshort(this,"signin");
                 startActivityForResult(
                         AuthUI.getInstance()
                                 .createSignInIntentBuilder()

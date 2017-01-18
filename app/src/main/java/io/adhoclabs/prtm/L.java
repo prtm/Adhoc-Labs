@@ -10,16 +10,16 @@ import android.widget.Toast;
 
 public class L {
 
-    public void tmlong(Context context, String msg) {
+    public static void tmlong(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
 
 
-    public void tmshort(Context context, String msg) {
+    public static void tmshort(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
-    public void tlog(String msg) {
+    public static void tlog(String msg) {
         Log.d("preetam", msg);
     }
 }

@@ -11,4 +11,13 @@
     <string name="email_address">Email Address</string>
     <string name="contact_number">Contact Number</string>
     <string name="office_address">Office Address</string>
+    <string name="first_and_last_name">First and Last Name</string>
+    <string name="enquiry">Enquiry</string>
+    <string name="enter_your_name">Enter your Name</string>
+    <string name="enter_your_contact_number">Enter your Contact Number</string>
+    <string name="enter_your_email_address">Enter your Email Address</string>
+    <string name="enter_your_college_name">Enter your College Name</string>
+    <string name="college_name">College Name</string>
+    <string name="message">Message</string>
+    <string name="enter_your_message">Enter your Message</string>
 </resources>
