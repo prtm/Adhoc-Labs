@@ -42,15 +42,6 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -126,11 +117,9 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_enquiry) {
 
-            if (FirebaseAuth.getInstance() != null) {
+            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 replaceFragment(new Enquiry());
-                L.tmshort(this,"signinNot");
             } else {
-                L.tmshort(this,"signin");
                 startActivityForResult(
                         AuthUI.getInstance()
                                 .createSignInIntentBuilder()

@@ -30,6 +30,7 @@
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:hint="@string/enter_your_name"
                 android:inputType="textPersonName" />
         </android.support.design.widget.TextInputLayout>
@@ -46,6 +47,7 @@
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:hint="@string/enter_your_email_address"
                 android:inputType="textEmailAddress" />
         </android.support.design.widget.TextInputLayout>
@@ -63,7 +65,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/enter_your_contact_number"
-                android:inputType="number" />
+                android:inputType="number"
+                android:maxLength="10">
+
+            </EditText>
         </android.support.design.widget.TextInputLayout>
 
 
