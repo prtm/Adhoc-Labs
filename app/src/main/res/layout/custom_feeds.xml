@@ -10,12 +10,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="12dp">
 
         <ImageView
             android:id="@+id/redasu"
             android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:src="@drawable/redasu"
+            android:contentDescription="@string/author" />
 
         <TextView
             android:id="@+id/title"
@@ -30,18 +33,29 @@
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/description"
             android:layout_below="@+id/title"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/redasu"
             android:text="time" />
 
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/redasu"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="description" />
+
         <ImageView
             android:id="@+id/upcomingImg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/redasu" />
+            android:layout_below="@id/description"
+            android:layout_marginTop="12dp" />
 
 
     </RelativeLayout>
-
-</>
+</android.support.v7.widget.CardView>

@@ -20,4 +20,5 @@
     <string name="college_name">College Name</string>
     <string name="message">Message</string>
     <string name="enter_your_message">Enter your Message</string>
+    <string name="author">Author</string>
 </resources>
