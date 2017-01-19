@@ -40,7 +40,6 @@ public class News extends Fragment {
         progressBar = (ProgressBar) view.findViewById(R.id.pb);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.feeds_rv);
         setUpFirebaseAdapter();
-        setRetainInstance(true);
 
         return view;
     }

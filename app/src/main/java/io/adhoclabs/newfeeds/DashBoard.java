@@ -2,18 +2,19 @@ package io.adhoclabs.newfeeds;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import android.support.v4.view.ViewPager;
 
 import io.adhoclabs.prtm.R;
 
@@ -35,7 +36,6 @@ public class DashBoard extends Fragment {
 
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-        setRetainInstance(true);
 
         return view;
     }
@@ -47,7 +47,8 @@ public class DashBoard extends Fragment {
         viewPager.setAdapter(adapter);
     }
 
-    private class MyAdapter extends FragmentStatePagerAdapter {
+
+    private static class MyAdapter extends FragmentStatePagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
@@ -74,5 +75,8 @@ public class DashBoard extends Fragment {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+
+
     }
+
 }

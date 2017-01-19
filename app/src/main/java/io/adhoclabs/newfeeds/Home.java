@@ -158,7 +158,6 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
         sliderV.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         sliderV.setCustomAnimation(new DescriptionAnimation());
         sliderV.setDuration(4000);
-        setRetainInstance(true);
 
         return view;
     }
