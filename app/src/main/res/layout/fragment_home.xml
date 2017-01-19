@@ -5,6 +5,7 @@
     tools:context="io.adhoclabs.newfeeds.Home">
 
     <RelativeLayout
+        android:background="@color/authui_colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -37,49 +38,62 @@
 
         <ImageView
             android:id="@+id/serviceImg"
+            android:src="@android:mipmap/sym_def_app_icon"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="400dp"
+            android:foregroundGravity="center"
             android:layout_below="@+id/home_rv"
             android:adjustViewBounds="true"
             android:alpha="0.67" />
 
         <TextView
             android:id="@+id/services"
+            android:text="Adhoc Labs Training"
+            android:layout_marginTop="24dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="400dp"
             android:layout_alignBaseline="@+id/serviceImg"
-            android:layout_below="@+id/home_rv" />
+            android:layout_below="@+id/home_rv"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
 
         <LinearLayout
             android:id="@+id/ll1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="@android:color/white"
             android:layout_below="@id/serviceImg"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/cu1"
-                android:textSize="20sp"
-                android:layout_marginBottom="8dp"
+                android:textColor="#333333"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center" />
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/cu2"
-                android:layout_marginBottom="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:gravity="center" />
 
 
             <Button
                 android:id="@+id/contactus"
-                android:layout_marginBottom="8dp"
+                android:background="@color/com_facebook_blue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="center" />
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:text="Go"
+                android:textColor="@android:color/white" />
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

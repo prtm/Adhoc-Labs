@@ -52,8 +52,10 @@ public class MainActivity extends AppCompatActivity
 
 
         //Add Dynamic Fragment Dashboard
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.nav_fragment, new DashBoard(), "dashboard").commit();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.nav_fragment, new DashBoard(), "dashboard");
+        fragmentTransaction.addToBackStack("dashboard");
+        fragmentTransaction.commit();
 
 
     }
@@ -61,7 +63,6 @@ public class MainActivity extends AppCompatActivity
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.nav_fragment, fragment);
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
     }
@@ -184,6 +185,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void showSnackbar(String msg) {
-        Snackbar.make(findViewById(R.id.signin), msg, Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(findViewById(R.id.nav_fragment), msg, Snackbar.LENGTH_SHORT).show();
     }
 }

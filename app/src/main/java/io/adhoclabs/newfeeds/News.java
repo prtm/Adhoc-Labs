@@ -27,6 +27,7 @@ public class News extends Fragment {
 
     }
 
+
     private RecyclerView mRecyclerView;
     private FirebaseRecyclerAdapter<Feeds, FirebaseRvHolder> mFirebaseAdapter;
     private ProgressBar progressBar;
@@ -39,6 +40,7 @@ public class News extends Fragment {
         progressBar = (ProgressBar) view.findViewById(R.id.pb);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.feeds_rv);
         setUpFirebaseAdapter();
+        setRetainInstance(true);
 
         return view;
     }
@@ -64,12 +66,13 @@ public class News extends Fragment {
         };
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(mFirebaseAdapter);
+
 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressBar.setVisibility(View.GONE);
+                mRecyclerView.setAdapter(mFirebaseAdapter);
             }
 
             @Override

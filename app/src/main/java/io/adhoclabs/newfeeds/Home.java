@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,9 +34,6 @@ import java.util.Map;
 
 import io.adhoclabs.prtm.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class Home extends Fragment implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
 
@@ -60,7 +56,6 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
 
         sliderV = (SliderLayout) view.findViewById(R.id.slider);
 
-
         progressBar = (ProgressBar) view.findViewById(R.id.pb);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.home_rv);
         final ImageView serviceImg = (ImageView) view.findViewById(R.id.serviceImg);
@@ -80,7 +75,7 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
                 };
 
                 Map<String, String> maps = dataSnapshot.getValue(genericTypeIndicator);
-                serviceText.setText(maps.get("s1") + "\n" + maps.get("s2") + "\n" + maps.get("s3"));
+                serviceText.setText(maps.get("s1") + "\n\n" + maps.get("s2") + "\n\n" + maps.get("s3"));
                             Picasso.with(getActivity())
                     .load(maps.get("img"))
                     .resize(300, 300)
@@ -163,6 +158,7 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
         sliderV.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         sliderV.setCustomAnimation(new DescriptionAnimation());
         sliderV.setDuration(4000);
+        setRetainInstance(true);
 
         return view;
     }
@@ -215,12 +211,13 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
         };
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        mRecyclerView.setAdapter(mFirebaseAdapter);
+
 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressBar.setVisibility(View.GONE);
+                mRecyclerView.setAdapter(mFirebaseAdapter);
             }
 
             @Override
