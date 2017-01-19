@@ -7,60 +7,46 @@
     android:layout_marginRight="16dp"
     android:layout_marginTop="12dp"
     android:background="@android:color/white"
-    app:cardCornerRadius="5dp"
     app:cardElevation="2dp">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:padding="12dp">
 
-        <ImageView
-            android:id="@+id/redasu"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:contentDescription="@string/author"
-            android:src="@drawable/redasu" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/redasu"
+            android:gravity="center"
             android:text="title"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/description"
-            android:layout_below="@+id/title"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/redasu"
-            android:text="time" />
+            android:textColor="#333333"
+            android:textSize="20sp" />
 
 
         <TextView
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/redasu"
+            android:layout_below="@+id/title"
             android:layout_marginTop="12dp"
             android:gravity="center"
             android:text="description" />
 
+
         <ImageView
-            android:id="@+id/upcomingImg"
-            android:layout_width="match_parent"
+            android:id="@+id/techImg"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/description"
+            android:layout_alignParentBottom="true"
+            android:adjustViewBounds="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/description"
-            android:layout_marginTop="12dp"
-            android:adjustViewBounds="true" />
+            android:src="@mipmap/ic_launcher"
+            android:layout_margin="8dp"/>
 
 
     </RelativeLayout>
