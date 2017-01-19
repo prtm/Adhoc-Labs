@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import io.adhoclabs.prtm.L;
 import io.adhoclabs.prtm.R;
 
 public class News extends Fragment {
