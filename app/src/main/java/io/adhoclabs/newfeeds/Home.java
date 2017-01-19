@@ -58,6 +58,7 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
 
         progressBar = (ProgressBar) view.findViewById(R.id.pb);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.home_rv);
+        mRecyclerView.setNestedScrollingEnabled(false);
         final ImageView serviceImg = (ImageView) view.findViewById(R.id.serviceImg);
         final TextView serviceText = (TextView) view.findViewById(R.id.services);
         final TextView cu1 = (TextView) view.findViewById(R.id.cu1);  //contact us first line

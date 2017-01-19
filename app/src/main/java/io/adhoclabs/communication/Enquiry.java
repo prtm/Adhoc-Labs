@@ -22,7 +22,6 @@ import io.adhoclabs.prtm.R;
 
 public class Enquiry extends Fragment {
 
-    private View view;
 
     public Enquiry() {
         //empty constructor
@@ -32,7 +31,7 @@ public class Enquiry extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_enquiry, container, false);
+        View view = inflater.inflate(R.layout.fragment_enquiry, container, false);
 
         final EditText name = (EditText) view.findViewById(R.id.name);
         final EditText email_address = (EditText) view.findViewById(R.id.email);
@@ -41,14 +40,13 @@ public class Enquiry extends Fragment {
         final EditText msg = (EditText) view.findViewById(R.id.msg);
         final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         name.setText(firebaseAuth.getCurrentUser().getDisplayName());
-        showSnackBar(firebaseAuth.getCurrentUser().getDisplayName());
         email_address.setText(firebaseAuth.getCurrentUser().getEmail());
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(contactNum.getText()) && contactNum.getText().toString().length() == 10) {
+                if (TextUtils.isEmpty(contactNum.getText()) || contactNum.getText().toString().length() < 10) {
                     showSnackBar("Check Your Contact Number");
                 } else if (TextUtils.isEmpty(collegeName.getText())) {
                     showSnackBar(getResources().getString(R.string.enter_your_college_name));
@@ -82,6 +80,6 @@ public class Enquiry extends Fragment {
 
 
     private void showSnackBar(String msg) {
-        Snackbar.make(view, msg, Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(getView(), msg, Snackbar.LENGTH_SHORT).show();
     }
 }
