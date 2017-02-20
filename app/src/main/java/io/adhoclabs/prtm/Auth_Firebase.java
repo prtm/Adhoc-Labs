@@ -1,18 +1,11 @@
 package io.adhoclabs.prtm;
 
-import android.content.Intent;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.ErrorCodes;
-import com.firebase.ui.auth.IdpResponse;
-import com.firebase.ui.auth.ResultCodes;
 
 import java.util.Arrays;
-
-import io.adhoclabs.communication.Enquiry;
 
 public class Auth_Firebase extends AppCompatActivity {
 

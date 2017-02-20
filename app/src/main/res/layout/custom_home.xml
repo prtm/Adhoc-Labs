@@ -22,7 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="title"
             android:textColor="#333333"
             android:textSize="20sp" />
 
@@ -33,8 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/title"
             android:layout_marginTop="12dp"
-            android:gravity="center"
-            android:text="description" />
+            android:gravity="center" />
 
 
         <ImageView
@@ -44,9 +42,11 @@
             android:layout_below="@+id/description"
             android:layout_alignParentBottom="true"
             android:adjustViewBounds="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:src="@mipmap/ic_launcher"
-            android:layout_margin="8dp"/>
+            android:layout_margin="8dp"
+            android:contentDescription="@string/training_image" />
 
 
     </RelativeLayout>

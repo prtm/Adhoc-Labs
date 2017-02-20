@@ -19,11 +19,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.adhoclabs.prtm.L;
 import io.adhoclabs.prtm.R;
 
 public class TrainingDetail extends AppCompatActivity {
-    private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<TrainingsInfoObj> obj;
     private DatabaseReference databasereference;
@@ -34,12 +32,12 @@ public class TrainingDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_training_detail);
         String name = getIntent().getExtras().getString("TrainingItemClick");
-        recyclerView = (RecyclerView) findViewById(R.id.rv_trainingDetail);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_trainingDetail);
         progressbar = (ProgressBar) findViewById(R.id.pb);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         databasereference = FirebaseDatabase.getInstance().getReference().child("Trainings/" + name);
-        adapter = new TrainingDetails_rvadapter(this, getData());
+        adapter = new TrainingDetails_rvadapter(getData());
         recyclerView.setAdapter(adapter);
 
 
@@ -59,14 +57,14 @@ public class TrainingDetail extends AppCompatActivity {
 
                 Map<String, HashMap<String, String>> maps = dataSnapshot.getValue(genericTypeIndicator);
                 Object[] str = maps.keySet().toArray();
-                for (int i = 0; i < str.length; i++) {
+                for (Object aStr : str) {
                     TrainingsInfoObj tio = new TrainingsInfoObj();
-                    String t = (String) str[i];
+                    String t = (String) aStr;
 
                     tio.textT = maps.get(t).get("title");
                     tio.imageUrl = maps.get(t).get("description");
 
-                    L.tlog("Title: " + tio.textT + " ImageUrl: " + tio.imageUrl);
+                    //L.tlog("Title: " + tio.textT + " ImageUrl: " + tio.imageUrl);
                     if (tio.textT != null) {
                         obj.add(tio);
                     }

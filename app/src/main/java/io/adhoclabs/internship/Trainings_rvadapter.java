@@ -16,10 +16,6 @@ import java.util.List;
 
 import io.adhoclabs.prtm.R;
 
-/**
- * Created by ghost on 20/2/17.
- */
-
 
 class Trainings_rvadapter extends RecyclerView.Adapter<Trainings_rvadapter.Myholder> {
 

@@ -16,12 +16,10 @@ import io.adhoclabs.prtm.R;
  */
 
 class TrainingDetails_rvadapter extends RecyclerView.Adapter<TrainingDetails_rvadapter.Myholder> {
-    private final Context context;
     private List<TrainingsInfoObj> list;
 
-    TrainingDetails_rvadapter(Context context, List<TrainingsInfoObj> list) {
+    TrainingDetails_rvadapter(List<TrainingsInfoObj> list) {
         this.list = list;
-        this.context = context;
     }
 
     @Override

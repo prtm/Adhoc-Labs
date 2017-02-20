@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Auth_Firebase" />
-        <activity android:name="io.adhoclabs.internship.TrainingDetail"></activity>
+        <activity android:name="io.adhoclabs.internship.TrainingDetail" />
     </application>
 
 </manifest>

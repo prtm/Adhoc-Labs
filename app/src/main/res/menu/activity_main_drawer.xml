@@ -5,24 +5,24 @@
         <item
             android:id="@+id/nav_dashboard"
             android:icon="@android:drawable/arrow_down_float"
-            android:title="Dashboard" />
+            android:title="@string/dashboard" />
         <item
             android:id="@+id/nav_internship"
             android:icon="@android:drawable/alert_light_frame"
-            android:title="Trainings" />
+            android:title="@string/trainings" />
         <item
             android:id="@+id/nav_aboutus"
             android:icon="@android:drawable/star_big_off"
-            android:title="About Us" />
+            android:title="@string/about_us" />
 
         <item
             android:id="@+id/nav_contactus"
             android:icon="@android:drawable/ic_menu_help"
-            android:title="Contact Us" />
+            android:title="@string/contact_us" />
         <item
             android:id="@+id/nav_enquiry"
             android:icon="@android:drawable/ic_menu_send"
-            android:title="Enquiry" />
+            android:title="@string/enquiry" />
     </group>
 
 </menu>

@@ -23,4 +23,15 @@
     <string name="author">Author</string>
     <string name="about_us">About Us</string>
     <string name="course_image">Course Image</string>
+    <string name="title">title</string>
+    <string name="training_image">Training Image</string>
+    <string name="adhoc_labs_training">Adhoc Labs Training</string>
+    <string name="service_image">Service Image</string>
+    <string name="go">Go</string>
+    <string name="image_adhoc">Image Adhoc</string>
+    <string name="adhoc_labs">AdHoc Labs</string>
+    <string name="adhoclabs_io">adhoclabs.io</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="trainings">Trainings</string>
+    <string name="contact_us">Contact Us</string>
 </resources>

@@ -44,11 +44,12 @@
             android:foregroundGravity="center"
             android:layout_below="@+id/home_rv"
             android:adjustViewBounds="true"
-            android:alpha="0.67" />
+            android:alpha="0.67"
+            android:contentDescription="@string/service_image" />
 
         <TextView
             android:id="@+id/services"
-            android:text="Adhoc Labs Training"
+            android:text="@string/adhoc_labs_training"
             android:layout_marginTop="24dp"
             android:layout_width="match_parent"
             android:layout_height="400dp"
@@ -92,7 +93,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="8dp"
                 android:gravity="center"
-                android:text="Go"
+                android:text="@string/go"
                 android:textColor="@android:color/white" />
         </LinearLayout>
     </RelativeLayout>
