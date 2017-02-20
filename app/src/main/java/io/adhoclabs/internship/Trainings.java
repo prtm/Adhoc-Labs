@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.ChildEventListener;
@@ -35,9 +36,11 @@ import io.adhoclabs.prtm.R;
  * A simple {@link Fragment} subclass.
  */
 public class Trainings extends Fragment {
-
+    private List<TrainingsInfoObj> obj;
     private static final String title = "Trainings";
     private DatabaseReference databasereference;
+    private RecyclerView.Adapter adapter;
+    private ProgressBar progressbar;
 
     public Trainings() {
         // Required empty public constructor
@@ -52,10 +55,11 @@ public class Trainings extends Fragment {
         AppbarChange appbarChange = (AppbarChange) getActivity();
         appbarChange.setTitle(title);
         databasereference = FirebaseDatabase.getInstance().getReference().child("Trainings");
-
+        progressbar = (ProgressBar) view.findViewById(R.id.pb);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.training_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        RecyclerView.Adapter adapter = new Trainings_rvadapter(getActivity(), getData());
+        recyclerView.setHasFixedSize(true);
+        adapter = new Trainings_rvadapter(getActivity(), getData());
         recyclerView.setAdapter(adapter);
 
 
@@ -63,20 +67,29 @@ public class Trainings extends Fragment {
     }
 
     public List<TrainingsInfoObj> getData() {
-        List<TrainingsInfoObj> obj = new ArrayList<>();
+        obj = new ArrayList<>();
         databasereference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                GenericTypeIndicator<Map<String, HashMap<String ,HashMap<String, String>>>> genericTypeIndicator = new GenericTypeIndicator<Map<String, HashMap<String ,HashMap<String, String>>>>() {
+                //obj = Collections.emptyList();
+                progressbar.setVisibility(View.VISIBLE);
+                GenericTypeIndicator<Map<String, HashMap<String, HashMap<String, String>>>> genericTypeIndicator = new GenericTypeIndicator<Map<String, HashMap<String, HashMap<String, String>>>>() {
                 };
 
-                Map<String, HashMap<String ,HashMap<String, String>>> maps = dataSnapshot.getValue(genericTypeIndicator);
-                Object[] str=maps.keySet().toArray();
-                for(Object s:str){
+                Map<String, HashMap<String, HashMap<String, String>>> maps = dataSnapshot.getValue(genericTypeIndicator);
+                Object[] str = maps.keySet().toArray();
+                for (Object aStr : str) {
+                    TrainingsInfoObj tio = new TrainingsInfoObj();
+                    tio.textT = (String) aStr;
+                    tio.imageUrl = maps.get(tio.textT).get("img").get("ImageUrl");
+                    //L.tmlong(getActivity(), "Title: " + tio.textT + " ImageUrl: " + tio.imageUrl);
+                    obj.add(tio);
 
 
-                    L.tmlong(getActivity(),(String)s);
+                    //L.tmlong(getActivity(),(String)s);
                 }
+                progressbar.setVisibility(View.GONE);
+                adapter.notifyDataSetChanged();
                 //L.tmlong(getActivity(), Arrays.toString(maps.values().toArray()));
             }
 

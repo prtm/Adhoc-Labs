@@ -61,7 +61,7 @@ class Trainings_rvadapter extends RecyclerView.Adapter<Trainings_rvadapter.Myhol
                 public void onClick(View v) {
                     Intent i = new Intent(context, TrainingDetail.class);
                     Bundle bundle = new Bundle();
-                    bundle.putInt("TrainingItemClick", 0);
+                    bundle.putString("TrainingItemClick", textView.getText().toString());
                     i.putExtras(bundle);
                     context.startActivity(i);
 

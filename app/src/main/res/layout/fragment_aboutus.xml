@@ -4,8 +4,6 @@
     android:layout_height="match_parent"
     tools:context="io.adhoclabs.prtm.Aboutus">
 
-
-
     <ProgressBar
         android:id="@+id/pb"
         android:layout_width="match_parent"
