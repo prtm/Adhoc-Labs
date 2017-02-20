@@ -22,4 +22,5 @@
     <string name="enter_your_message">Enter your Message</string>
     <string name="author">Author</string>
     <string name="about_us">About Us</string>
+    <string name="course_image">Course Image</string>
 </resources>

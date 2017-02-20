@@ -23,13 +23,14 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Arrays;
 
+import io.adhoclabs.communication.AppbarChange;
 import io.adhoclabs.communication.Contactus;
 import io.adhoclabs.communication.Enquiry;
-import io.adhoclabs.internship.Internship;
+import io.adhoclabs.internship.Trainings;
 import io.adhoclabs.newfeeds.DashBoard;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AppbarChange {
     private static final int RC_SIGN_IN = 176;
     private NavigationView navigationView;
 
@@ -108,9 +109,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_dashboard) {
             replaceFragment(new DashBoard());
         } else if (id == R.id.nav_internship) {
-            replaceFragment(new Internship());
-
-        } else if (id == R.id.nav_trainings) {
             replaceFragment(new Trainings());
 
         } else if (id == R.id.nav_aboutus) {
@@ -186,5 +184,10 @@ public class MainActivity extends AppCompatActivity
 
     private void showSnackbar(String msg) {
         Snackbar.make(findViewById(R.id.nav_fragment), msg, Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setTitle(String title) {
+        getSupportActionBar().setTitle(title);
     }
 }

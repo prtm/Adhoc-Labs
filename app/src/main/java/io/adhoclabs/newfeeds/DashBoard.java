@@ -2,11 +2,11 @@ package io.adhoclabs.newfeeds;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +14,11 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.support.v4.view.ViewPager;
-
+import io.adhoclabs.communication.AppbarChange;
 import io.adhoclabs.prtm.R;
 
 public class DashBoard extends Fragment {
+    private static final String title = "DashBoard";
 
     public DashBoard() {
         // Required empty public constructor
@@ -30,12 +30,15 @@ public class DashBoard extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dash_board, container, false);
+        AppbarChange appbarChange = (AppbarChange) getActivity();
+        appbarChange.setTitle(title);
 
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
 
         return view;
     }

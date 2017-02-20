@@ -9,10 +9,6 @@
         <item
             android:id="@+id/nav_internship"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Internship" />
-        <item
-            android:id="@+id/nav_trainings"
-            android:icon="@drawable/ic_menu_slideshow"
             android:title="Trainings" />
         <item
             android:id="@+id/nav_aboutus"

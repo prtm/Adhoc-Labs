@@ -32,7 +32,8 @@
                     android:scheme="http" />
             </intent-filter>
         </activity>
-        <activity android:name=".Auth_Firebase"></activity>
+        <activity android:name=".Auth_Firebase" />
+        <activity android:name="io.adhoclabs.internship.TrainingDetail"></activity>
     </application>
 
 </manifest>

@@ -5,16 +5,6 @@
     tools:context="io.adhoclabs.prtm.Aboutus">
 
 
-    <TextView
-        android:id="@+id/about"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textSize="18sp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/com_facebook_blue"
-        android:gravity="center"
-        android:text="@string/about_us"
-        android:textColor="@android:color/white" />
 
     <ProgressBar
         android:id="@+id/pb"
@@ -26,7 +16,6 @@
         android:id="@+id/aboutus_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/about"
         android:background="#e5e5e5"
         android:padding="16dp" />
 

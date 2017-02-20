@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import io.adhoclabs.communication.AppbarChange;
 import io.adhoclabs.newfeeds.Home;
 
 
@@ -32,6 +33,7 @@ public class Aboutus extends Fragment {
 
     private RecyclerView mRecyclerView;
     private ProgressBar progressBar;
+    private static final String title = "About Us";
     private FirebaseRecyclerAdapter<Aboutus.About, Aboutus.FirebaseRvHolder> mFirebaseAdapter;
 
     public Aboutus() {
@@ -47,6 +49,8 @@ public class Aboutus extends Fragment {
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.aboutus_rv);
         progressBar = (ProgressBar) view.findViewById(R.id.pb);
+        AppbarChange appbarChange = (AppbarChange) getActivity();
+        appbarChange.setTitle(title);
 
 
         setUpFirebaseAdapter();

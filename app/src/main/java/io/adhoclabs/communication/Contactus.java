@@ -25,7 +25,7 @@ import io.adhoclabs.prtm.R;
  * A simple {@link Fragment} subclass.
  */
 public class Contactus extends Fragment {
-
+    private static final String title = "Contact Us";
 
     public Contactus() {
         // Required empty public constructor
@@ -43,6 +43,9 @@ public class Contactus extends Fragment {
         final TextView number = (TextView) view.findViewById(R.id.num);
         final TextView address = (TextView) view.findViewById(R.id.address);
         final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.pb);
+
+        AppbarChange appbarChange = (AppbarChange) getActivity();
+        appbarChange.setTitle(title);
         progressBar.setVisibility(View.VISIBLE);
 
         //Firebase get contact from database
@@ -67,7 +70,6 @@ public class Contactus extends Fragment {
                 progressBar.setVisibility(View.GONE);
             }
         });
-
 
 
         return view;
