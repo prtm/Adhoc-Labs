@@ -1,13 +1,10 @@
 package io.adhoclabs.internship;
 
-
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.google.firebase.database.DataSnapshot;
@@ -22,42 +19,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.adhoclabs.communication.AppbarChange;
 import io.adhoclabs.prtm.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class Trainings extends Fragment {
-    private List<TrainingsInfoObj> obj;
-    private static final String title = "Trainings";
-    private DatabaseReference databasereference;
+public class TrainingDActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
+    private List<TrainingsInfoObj> obj;
+    private DatabaseReference databasereference;
     private ProgressBar progressbar;
 
-    public Trainings() {
-        // Required empty public constructor
-    }
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_trainings, container, false);
-        AppbarChange appbarChange = (AppbarChange) getActivity();
-        appbarChange.setTitle(title);
-        databasereference = FirebaseDatabase.getInstance().getReference().child("Trainings");
-        progressbar = (ProgressBar) view.findViewById(R.id.pb);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.training_rv);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_training_detail);
+        String name = getIntent().getExtras().getString("TrainingItemClick");
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_trainingDetail);
+        progressbar = (ProgressBar) findViewById(R.id.pb);
         recyclerView.setHasFixedSize(true);
-        adapter = new Trainings_rvadapter(getActivity(), getData());
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        databasereference = FirebaseDatabase.getInstance().getReference().child("TrainingActivity/" + name);
+        adapter = new TrainingDAdapter(getData());
         recyclerView.setAdapter(adapter);
 
 
-        return view;
     }
+
 
     public List<TrainingsInfoObj> getData() {
         obj = new ArrayList<>();
@@ -66,18 +51,23 @@ public class Trainings extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //obj = Collections.emptyList();
                 progressbar.setVisibility(View.VISIBLE);
-                GenericTypeIndicator<Map<String, HashMap<String, HashMap<String, String>>>> genericTypeIndicator = new GenericTypeIndicator<Map<String, HashMap<String, HashMap<String, String>>>>() {
-                };
+                GenericTypeIndicator<Map<String, HashMap<String, String>>> genericTypeIndicator =
+                        new GenericTypeIndicator<Map<String, HashMap<String, String>>>() {
+                        };
 
-                Map<String, HashMap<String, HashMap<String, String>>> maps = dataSnapshot.getValue(genericTypeIndicator);
+                Map<String, HashMap<String, String>> maps = dataSnapshot.getValue(genericTypeIndicator);
                 Object[] str = maps.keySet().toArray();
                 for (Object aStr : str) {
                     TrainingsInfoObj tio = new TrainingsInfoObj();
-                    tio.textT = (String) aStr;
-                    tio.imageUrl = maps.get(tio.textT).get("img").get("ImageUrl");
-                    //L.tmlong(getActivity(), "Title: " + tio.textT + " ImageUrl: " + tio.imageUrl);
-                    obj.add(tio);
+                    String t = (String) aStr;
 
+                    tio.textT = maps.get(t).get("title");
+                    tio.imageUrl = maps.get(t).get("description");
+
+                    //L.tlog("Title: " + tio.textT + " ImageUrl: " + tio.imageUrl);
+                    if (tio.textT != null) {
+                        obj.add(tio);
+                    }
 
                     //L.tmlong(getActivity(),(String)s);
                 }
@@ -91,6 +81,7 @@ public class Trainings extends Fragment {
 
             }
         });
+
 
         return obj;
     }

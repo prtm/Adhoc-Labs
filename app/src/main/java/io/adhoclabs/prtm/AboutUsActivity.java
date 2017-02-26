@@ -1,13 +1,14 @@
-package io.adhoclabs.newfeeds;
+package io.adhoclabs.prtm;
+
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -17,50 +18,53 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
-import io.adhoclabs.prtm.R;
+import io.adhoclabs.communication.TitleInterface;
 
-public class News extends Fragment {
 
-    public News() {
-
-    }
-
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class AboutUsActivity extends Fragment {
 
     private RecyclerView mRecyclerView;
-    private FirebaseRecyclerAdapter<Feeds, FirebaseRvHolder> mFirebaseAdapter;
     private ProgressBar progressBar;
+    private static final String title = "About Us";
+    private FirebaseRecyclerAdapter<AboutUsActivity.About, AboutUsActivity.FirebaseRvHolder> mFirebaseAdapter;
+
+    public AboutUsActivity() {
+        // Required empty public constructor
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_news, container, false);
-        progressBar = (ProgressBar) view.findViewById(R.id.pb);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.feeds_rv);
-        setUpFirebaseAdapter();
+        View view = inflater.inflate(R.layout.fragment_aboutus, container, false);
 
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.aboutus_rv);
+        progressBar = (ProgressBar) view.findViewById(R.id.pb);
+        TitleInterface appbarChange = (TitleInterface) getActivity();
+        appbarChange.setTitle(title);
+
+
+        setUpFirebaseAdapter();
         return view;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mFirebaseAdapter.cleanup();
-    }
 
     private void setUpFirebaseAdapter() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("New Feeds");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("About Us");
 
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<Feeds, FirebaseRvHolder>
-                (Feeds.class, R.layout.custom_feeds, FirebaseRvHolder.class,
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<AboutUsActivity.About, AboutUsActivity.FirebaseRvHolder>
+                (AboutUsActivity.About.class, R.layout.custom_aboutus, AboutUsActivity.FirebaseRvHolder.class,
                         reference) {
 
             @Override
-            protected void populateViewHolder(FirebaseRvHolder viewHolder,
-                                              Feeds model, int position) {
-                viewHolder.bindFeeds(model);
+            protected void populateViewHolder(AboutUsActivity.FirebaseRvHolder viewHolder,
+                                              AboutUsActivity.About model, int position) {
+                viewHolder.bindAboutus(model);
             }
         };
         mRecyclerView.setHasFixedSize(true);
@@ -81,9 +85,8 @@ public class News extends Fragment {
         });
     }
 
-    private static class FirebaseRvHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView title, time, description;
-        ImageView upcomingImg;
+    public static class FirebaseRvHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView title, description;
 
         public FirebaseRvHolder(View itemView) {
             super(itemView);
@@ -92,21 +95,19 @@ public class News extends Fragment {
 
         }
 
-        void bindFeeds(Feeds feeds) {
+        public void bindAboutus(AboutUsActivity.About about) {
             title = (TextView) itemView.findViewById(R.id.title);
-            time = (TextView) itemView.findViewById(R.id.time);
             description = (TextView) itemView.findViewById(R.id.description);
-            upcomingImg = (ImageView) itemView.findViewById(R.id.upcomingImg);
 
-            title.setText(feeds.getTitle());
-            time.setText(feeds.getTime());
-            description.setText(feeds.getDescription());
+            title.setText(about.getTitle());
+            description.setText(about.getDescription());
+            try {
+                Log.d("preetam", about.getTitle());
+                Log.d("preetam", about.getDescription());
 
-            Picasso.with(itemView.getContext())
-                    .load(feeds.getImg())
-                    .resize(250, 250)
-                    .centerCrop()
-                    .into(upcomingImg);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         @Override
@@ -115,12 +116,13 @@ public class News extends Fragment {
         }
     }
 
-    private static class Feeds {
-        public Feeds() {
+    public static class About {
+
+        public About() {
 
         }
 
-        private String title, description, img, time;
+        private String title, description;
 
         public String getTitle() {
             return title;
@@ -130,7 +132,7 @@ public class News extends Fragment {
             this.title = title;
         }
 
-        String getDescription() {
+        public String getDescription() {
             return description;
         }
 
@@ -138,22 +140,7 @@ public class News extends Fragment {
             this.description = description;
         }
 
-        String getImg() {
-            return img;
-        }
-
-        public void setImg(String img) {
-            this.img = img;
-        }
-
-        public String getTime() {
-            return time;
-        }
-
-        public void setTime(String time) {
-            this.time = time;
-        }
-
     }
+
 
 }

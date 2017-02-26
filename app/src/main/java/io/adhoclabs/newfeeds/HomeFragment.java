@@ -16,6 +16,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
@@ -28,22 +30,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.Map;
 
 import io.adhoclabs.prtm.R;
 
-public class Home extends Fragment implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+public class HomeFragment extends Fragment implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
 
     private RecyclerView mRecyclerView;
-    private FirebaseRecyclerAdapter<Home.Tech, Home.FirebaseRvHolder> mFirebaseAdapter;
+    private FirebaseRecyclerAdapter<HomeFragment.Tech, HomeFragment.FirebaseRvHolder> mFirebaseAdapter;
     private ProgressBar progressBar;
     private SliderLayout sliderV;
     private DatabaseReference drHome;
 
-    public Home() {
+    public HomeFragment() {
         // Required empty public constructor
     }
 
@@ -67,7 +68,7 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
         final Button button = (Button) view.findViewById(R.id.contactus);
 
 
-        drHome = FirebaseDatabase.getInstance().getReference("Home");
+        drHome = FirebaseDatabase.getInstance().getReference("HomeFragment");
 
         //Setting up services in view
         drHome.child("services").addValueEventListener(new ValueEventListener() {
@@ -78,11 +79,12 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
 
                 Map<String, String> maps = dataSnapshot.getValue(genericTypeIndicator);
                 serviceText.setText(maps.get("s1") + "\n\n" + maps.get("s2") + "\n\n" + maps.get("s3"));
-                            Picasso.with(getActivity())
-                    .load(maps.get("img"))
-                    .resize(300, 300)
-                    .centerCrop()
-                    .into(serviceImg);
+
+                Glide.with(getActivity()).load(maps.get("img")).placeholder(R.mipmap.ic_launcher).centerCrop().override(300, 300)
+                        .thumbnail(0.5f)
+                        .crossFade()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(serviceImg);
 
             }
 
@@ -137,7 +139,7 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
                             .description(name)
                             .image(maps.get(name))
                             .setScaleType(BaseSliderView.ScaleType.Fit)
-                            .setOnSliderClickListener(Home.this);
+                            .setOnSliderClickListener(HomeFragment.this);
 
                     //add your extra information
                     textSliderView.bundle(new Bundle());
@@ -193,20 +195,21 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         mFirebaseAdapter.cleanup();
+        super.onDestroy();
+
     }
 
     private void setUpFirebaseAdapter() {
         DatabaseReference reference = drHome.child("tech");
 
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<Tech, Home.FirebaseRvHolder>
-                (Tech.class, R.layout.custom_home, Home.FirebaseRvHolder.class,
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<Tech, HomeFragment.FirebaseRvHolder>
+                (Tech.class, R.layout.custom_home, HomeFragment.FirebaseRvHolder.class,
                         reference) {
 
             @Override
-            protected void populateViewHolder(Home.FirebaseRvHolder viewHolder,
-                                              Home.Tech model, int position) {
+            protected void populateViewHolder(HomeFragment.FirebaseRvHolder viewHolder,
+                                              HomeFragment.Tech model, int position) {
                 viewHolder.bindTech(model);
             }
         };
@@ -228,9 +231,9 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
         });
     }
 
-    private static class FirebaseRvHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class FirebaseRvHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title, description;
-        ImageView techImg;
+        ImageView img;
 
         public FirebaseRvHolder(View itemView) {
             super(itemView);
@@ -239,19 +242,20 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
 
         }
 
-        void bindTech(Home.Tech feeds) {
+        public void bindTech(HomeFragment.Tech feeds) {
             title = (TextView) itemView.findViewById(R.id.title);
             description = (TextView) itemView.findViewById(R.id.description);
-            techImg = (ImageView) itemView.findViewById(R.id.techImg);
+            img = (ImageView) itemView.findViewById(R.id.techImg);
 
             title.setText(feeds.getTitle());
             description.setText(feeds.getDescription());
-
-            Picasso.with(itemView.getContext())
-                    .load(feeds.getImg())
-                    .resize(100, 100)
-                    .centerCrop()
-                    .into(techImg);
+            System.out.println(feeds.getTitle());
+            System.out.println(feeds.getImg());
+            Glide.with(itemView.getContext()).load(feeds.getImg()).placeholder(R.mipmap.ic_launcher).centerCrop().override(100, 100)
+                    .thumbnail(0.5f)
+                    .crossFade()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(img);
         }
 
         @Override
@@ -260,12 +264,12 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
         }
     }
 
-    private static class Tech {
-        public Tech() {
-
-        }
+    public static class Tech {
 
         private String title, description, img;
+
+        public Tech() {
+        }
 
         public String getTitle() {
             return title;
@@ -275,7 +279,7 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
             this.title = title;
         }
 
-        String getDescription() {
+        public String getDescription() {
             return description;
         }
 
@@ -283,7 +287,7 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
             this.description = description;
         }
 
-        String getImg() {
+        public String getImg() {
             return img;
         }
 

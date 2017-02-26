@@ -5,7 +5,7 @@
     android:background="@android:color/white"
     android:orientation="horizontal"
     android:padding="16dp"
-    tools:context="io.adhoclabs.internship.Trainings">
+    tools:context="io.adhoclabs.internship.TrainingActivity">
 
     <ImageView
         android:id="@+id/imageTraining"

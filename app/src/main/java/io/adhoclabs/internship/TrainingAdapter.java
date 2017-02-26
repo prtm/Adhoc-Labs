@@ -10,19 +10,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
 import io.adhoclabs.prtm.R;
 
 
-class Trainings_rvadapter extends RecyclerView.Adapter<Trainings_rvadapter.Myholder> {
+class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.Myholder> {
 
     private final List<TrainingsInfoObj> list;
     private Context context;
 
-    Trainings_rvadapter(Context context, List<TrainingsInfoObj> list) {
+    TrainingAdapter(Context context, List<TrainingsInfoObj> list) {
         this.context = context;
         this.list = list;
 
@@ -35,7 +36,11 @@ class Trainings_rvadapter extends RecyclerView.Adapter<Trainings_rvadapter.Myhol
 
     @Override
     public void onBindViewHolder(Myholder holder, int position) {
-        Picasso.with(context).load(list.get(position).imageUrl).placeholder(R.drawable.redasu).resize(64, 64).into(holder.imageView);
+        Glide.with(context).load(list.get(position).imageUrl).placeholder(R.mipmap.ic_launcher).override(64, 64)
+                .thumbnail(0.5f)
+                .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.imageView);
         holder.textView.setText(list.get(position).textT);
     }
 
@@ -55,7 +60,7 @@ class Trainings_rvadapter extends RecyclerView.Adapter<Trainings_rvadapter.Myhol
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(context, TrainingDetail.class);
+                    Intent i = new Intent(context, TrainingDActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("TrainingItemClick", textView.getText().toString());
                     i.putExtras(bundle);

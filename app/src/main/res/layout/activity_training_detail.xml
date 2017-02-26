@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#e5e5e5"
     android:padding="16dp"
-    tools:context="io.adhoclabs.internship.TrainingDetail">
+    tools:context="io.adhoclabs.internship.TrainingDActivity">
 
     <ProgressBar
         android:id="@+id/pb"

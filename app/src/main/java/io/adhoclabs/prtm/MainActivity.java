@@ -2,6 +2,7 @@ package io.adhoclabs.prtm;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
@@ -23,16 +25,17 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Arrays;
 
-import io.adhoclabs.communication.AppbarChange;
-import io.adhoclabs.communication.Contactus;
-import io.adhoclabs.communication.Enquiry;
-import io.adhoclabs.internship.Trainings;
-import io.adhoclabs.newfeeds.DashBoard;
+import io.adhoclabs.communication.EnquiryFragment;
+import io.adhoclabs.communication.TitleInterface;
+import io.adhoclabs.communication.ContactUsFragment;
+import io.adhoclabs.internship.TrainingActivity;
+import io.adhoclabs.newfeeds.DashBoardFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, AppbarChange {
+        implements NavigationView.OnNavigationItemSelectedListener, TitleInterface {
     private static final int RC_SIGN_IN = 176;
     private NavigationView navigationView;
+    private boolean backPressExit = false;
 
 
     @Override
@@ -54,8 +57,7 @@ public class MainActivity extends AppCompatActivity
 
         //Add Dynamic Fragment Dashboard
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.nav_fragment, new DashBoard(), "dashboard");
-        fragmentTransaction.addToBackStack("dashboard");
+        fragmentTransaction.add(R.id.nav_fragment, new DashBoardFragment(), "dashboard");
         fragmentTransaction.commit();
 
 
@@ -68,15 +70,6 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -88,7 +81,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
+        // automatically handle clicks on the HomeFragment/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
@@ -107,20 +100,20 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_dashboard) {
-            replaceFragment(new DashBoard());
+            replaceFragment(new DashBoardFragment());
         } else if (id == R.id.nav_internship) {
-            replaceFragment(new Trainings());
+            replaceFragment(new TrainingActivity());
 
         } else if (id == R.id.nav_aboutus) {
-            replaceFragment(new Aboutus());
+            replaceFragment(new AboutUsActivity());
 
         } else if (id == R.id.nav_contactus) {
-            replaceFragment(new Contactus());
+            replaceFragment(new ContactUsFragment());
 
         } else if (id == R.id.nav_enquiry) {
 
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                replaceFragment(new Enquiry());
+                replaceFragment(new EnquiryFragment());
             } else {
                 startActivityForResult(
                         AuthUI.getInstance()
@@ -155,10 +148,10 @@ public class MainActivity extends AppCompatActivity
 
             // Successfully signed in
             if (resultCode == ResultCodes.OK) {
-                replaceFragment(new Enquiry());
+                replaceFragment(new EnquiryFragment());
                 return;
             } else {
-                replaceFragment(new DashBoard());
+                replaceFragment(new DashBoardFragment());
                 navigationView.setCheckedItem(R.id.nav_dashboard);
                 // Sign in failed
                 if (response == null) {
@@ -189,5 +182,32 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void setTitle(String title) {
         getSupportActionBar().setTitle(title);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            if (backPressExit) {
+                super.onBackPressed();
+                return;
+            }
+
+            this.backPressExit = true;
+            Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    backPressExit = false;
+                }
+            }, 2000);
+        }
+
+
     }
 }

@@ -7,7 +7,7 @@ import com.firebase.ui.auth.AuthUI;
 
 import java.util.Arrays;
 
-public class Auth_Firebase extends AppCompatActivity {
+public class AuthFirebase extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 176;
 
@@ -20,9 +20,7 @@ public class Auth_Firebase extends AppCompatActivity {
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
-                                new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
-                                new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build(),
-                                new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build()))
+                                new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
                         .build(),
                 RC_SIGN_IN);
 

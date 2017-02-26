@@ -20,10 +20,10 @@ import java.util.Map;
 
 import io.adhoclabs.prtm.R;
 
-public class Enquiry extends Fragment {
+public class EnquiryFragment extends Fragment {
 
 
-    public Enquiry() {
+    public EnquiryFragment() {
         //empty constructor
     }
 
@@ -53,7 +53,7 @@ public class Enquiry extends Fragment {
                 } else if (TextUtils.isEmpty(msg.getText())) {
                     showSnackBar(getResources().getString(R.string.enter_your_message));
                 } else {
-                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Enquiry");
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("EnquiryFragment");
                     Map<String, String> sh = new HashMap<>();
                     sh.put("Name", firebaseAuth.getCurrentUser().getDisplayName());
                     sh.put("Email Address", firebaseAuth.getCurrentUser().getEmail());

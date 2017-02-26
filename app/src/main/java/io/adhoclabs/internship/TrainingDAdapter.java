@@ -1,6 +1,5 @@
 package io.adhoclabs.internship;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +14,10 @@ import io.adhoclabs.prtm.R;
  * Created by ghost on 20/2/17.
  */
 
-class TrainingDetails_rvadapter extends RecyclerView.Adapter<TrainingDetails_rvadapter.Myholder> {
+class TrainingDAdapter extends RecyclerView.Adapter<TrainingDAdapter.Myholder> {
     private List<TrainingsInfoObj> list;
 
-    TrainingDetails_rvadapter(List<TrainingsInfoObj> list) {
+    TrainingDAdapter(List<TrainingsInfoObj> list) {
         this.list = list;
     }
 

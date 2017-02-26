@@ -23,10 +23,10 @@ import io.adhoclabs.prtm.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Contactus extends Fragment {
+public class ContactUsFragment extends Fragment {
     private static final String title = "Contact Us";
 
-    public Contactus() {
+    public ContactUsFragment() {
         // Required empty public constructor
     }
 
@@ -43,7 +43,7 @@ public class Contactus extends Fragment {
         final TextView address = (TextView) view.findViewById(R.id.address);
         final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.pb);
 
-        AppbarChange appbarChange = (AppbarChange) getActivity();
+        TitleInterface appbarChange = (TitleInterface) getActivity();
         appbarChange.setTitle(title);
         progressBar.setVisibility(View.VISIBLE);
 

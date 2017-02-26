@@ -14,13 +14,13 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.adhoclabs.communication.AppbarChange;
+import io.adhoclabs.communication.TitleInterface;
 import io.adhoclabs.prtm.R;
 
-public class DashBoard extends Fragment {
-    private static final String title = "DashBoard";
+public class DashBoardFragment extends Fragment {
+    private static final String title = "DashBoardFragment";
 
-    public DashBoard() {
+    public DashBoardFragment() {
         // Required empty public constructor
     }
 
@@ -30,7 +30,7 @@ public class DashBoard extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dash_board, container, false);
-        AppbarChange appbarChange = (AppbarChange) getActivity();
+        TitleInterface appbarChange = (TitleInterface) getActivity();
         appbarChange.setTitle(title);
 
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
@@ -45,8 +45,8 @@ public class DashBoard extends Fragment {
 
     private void setupViewPager(ViewPager viewPager) {
         MyAdapter adapter = new MyAdapter(getActivity().getSupportFragmentManager());
-        adapter.addFragment(new Home(), "Home");
-        adapter.addFragment(new News(), "New Feeds");
+        adapter.addFragment(new HomeFragment(), "HomeFragment");
+        adapter.addFragment(new NewsFragment(), "New Feeds");
         viewPager.setAdapter(adapter);
     }
 
